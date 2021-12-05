@@ -17,7 +17,7 @@ function Beers(props) {
         return (
           <div>
             <img src={elem.image_url} alt="" />
-            <Link to={`/beer-details/${elem._id}`}>{elem.name}</Link>
+            <Link to={`/${elem._id}`}>{elem.name}</Link>
             <p>{elem.tagline}</p>
             <p>{elem.contributed_by}</p>
           </div>

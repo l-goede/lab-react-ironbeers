@@ -22,6 +22,35 @@ function App() {
     getData();
   });
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const {
+      name,
+      tagline,
+      description,
+      first_brewed,
+      brewers_tips,
+      attenuation_level,
+      contributed_by,
+    } = event.target;
+
+    let newBeer = {
+      name: name.value,
+      tagline: tagline.value,
+      description: description.value,
+      first_brewed: first_brewed.value,
+      brewers_tips: brewers_tips.value,
+      attenuation_level: attenuation_level.value,
+      contributed_by: contributed_by.value,
+    };
+
+    let response = await axios.post(
+      'https://ih-beers-api2.herokuapp.com/beers/new',
+      newBeer
+    );
+    setBeers([response.data, ...beers]);
+  };
+
   return (
     <div>
       <Routes>
@@ -29,10 +58,9 @@ function App() {
         <Route path="/beers" element={<Beers beers={beers} />} />
         <Route path="/:id" element={<BeerDetail />} />
         <Route path="/random-beer" element={<RandomBeer />} />
-        <Route path="/new" element={<NewBeer />} />
+        <Route path="/new-beer" element={<NewBeer btnAdd={handleSubmit} />} />
       </Routes>
     </div>
   );
 }
-
 export default App;
